@@ -15,11 +15,11 @@ Vue.use(Router)
 //地址栏访问脚手架 127.0.0.1:8080看package.json
 export default new Router({
   routes: [
-    {path:"/",redirect:"/test"},
+    {path:"/",redirect:"/pageOne"},
     {path:"/test",component:test,children:[
-      {path:"/pageOne",component:pageOne,meta:{index:1,keepAlive:true}},
-      {path:"/pageTwo",component:pageTwo,meta:{index:2,keepAlive:true}},
-      {path:"/pageThree",component:pageThree,meta:{index:3,keepAlive:true}},
+      {path:"/pageOne",component:pageOne,meta:{index:0,keepAlive:true}},
+      {path:"/pageTwo",component:pageTwo,meta:{index:1,keepAlive:true}},
+      {path:"/pageThree",component:pageThree,meta:{index:2,keepAlive:true}},
     ]},
   ]
 })
