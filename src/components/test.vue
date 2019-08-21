@@ -1,21 +1,23 @@
 <template>
     <div class="test">
-        <ul class="navBar">
+        <div class="header">
+             <ul class="navBar">
             <li>
-                <router-link to="/pageOne" :class="{active:index==0}">页面1</router-link>
+                <router-link to="/pageOne">页面1</router-link>
             </li>
              <li>
-                <router-link to="/pageTwo" :class="{active:index==1}">页面2</router-link>
+                <router-link to="/pageTwo">页面2</router-link>
             </li>
              <li>
-                <router-link to="/pageThree" :class="{active:index==2}">页面3</router-link>
+                <router-link to="/pageThree">页面3</router-link>
             </li>
         </ul>
+        </div>
         <div class="swipe">
         <v-touch v-on:swipeleft="swipeleft" v-on:swiperight="swiperight">
          <transition :name="direction">
                 <!-- <keep-alive> -->
-                    <router-view class=".router-view" key="index"></router-view>        
+                    <router-view class="router-view" key="index" ></router-view>        
                 <!-- </keep-alive> -->
             </transition>
         </v-touch>
@@ -31,7 +33,7 @@ export default {
     data(){
         return{
             direction:"forward",
-            index:0//记录当前页面内容对应子组件
+            topath:"",
         }
     },
     components:{
@@ -41,21 +43,18 @@ export default {
     },
     watch:{
         '$route' (to,from){
-            // 控制滑动方向
             this.direction=to.meta.index<from.meta.index?"back":"forward"
-            // 获取当前页面的子组件的index
-            this.index=to.meta.index
-        }
-       
+        },
+        
     },
     methods:{
         swipeleft(){
             console.log(this.$route.meta.index)
             switch (this.$route.meta.index) {
-                case 0:
+                case 1:
             this.$router.push({"path":"/pageTwo"})                    
                     break;
-                case 1:
+                case 2:
             this.$router.push({"path":"/pageThree"})
                     break;
                 default:
@@ -64,10 +63,10 @@ export default {
         },
         swiperight(){
               switch (this.$route.meta.index) {
-                case 2:
+                case 3:
             this.$router.push({"path":"/pageTwo"})                    
                     break;
-                case 1:
+                case 2:
             this.$router.push({"path":"/pageOne"})
                     break;
                 default:
@@ -80,10 +79,15 @@ export default {
 <style>
 .swipe{
     width:100%;
-    height: 400px;
+    top:41px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    position: fixed;
+    overflow-y: scroll;
+    overflow-x:hidden;
 }
 
-/* 使不同routerView位置重合 */
 .router-view{
     position: absolute;
     top:0;
@@ -119,6 +123,13 @@ export default {
     transition: all 1s linear;
 }
 /* 头部样式 */
+.test .header{
+    position:fixed;
+    height: 41px;
+    left:0;
+    right:0;
+    top:0;
+}
 .test .navBar{
     display:flex;
     justify-content:center;
@@ -127,10 +138,8 @@ export default {
     padding:10px 15px;
 
 }
-/* tab高亮显示 */
-.test .navBar .active{
-    background:red;
-}
 </style>
+
+
 
 
