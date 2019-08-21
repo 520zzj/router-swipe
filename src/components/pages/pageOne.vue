@@ -22,7 +22,7 @@ export default {
 <style>
 .pageOne .page{
     width:100%;
-    height: 400px;
+    height: 2000px;
     background:green;
 }
 </style>
